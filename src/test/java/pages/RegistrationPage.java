@@ -1,10 +1,10 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.selector.ByText;
 import org.openqa.selenium.Keys;
 import pages.components.CalendarComponent;
 
-import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -21,17 +21,21 @@ public class RegistrationPage {
             hobbiesWrapper = $("#hobbiesWrapper"),
             pictureUpload = $("#uploadPicture"),
             addressInput = $("#currentAddress"),
-            stateInput = $("#react-select-3-input"),
-            cityInput = $("#react-select-4-input"),
+            stateInput = $("#state"),
+            cityInput = $("#city"),
             submitButton = $("#submit"),
-            resultTable = $(".table-responsive");
-
+            stateAndCityFragment = $("#stateCity-wrapper");
 
     CalendarComponent calendarComponent = new CalendarComponent();
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+
+        return this;
+    }
+
+    public RegistrationPage removeBanners() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
 
@@ -100,28 +104,22 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setStateAndCity(String state, String city) {
-        stateInput.setValue(state).pressEnter();
-        cityInput.setValue(city).pressEnter();
+    public RegistrationPage setState(String state) {
+        stateInput.click();
+        stateAndCityFragment.$(byText(state)).click();
+
+        return this;
+    }
+
+    public RegistrationPage setCity(String city) {
+        cityInput.click();
+        stateAndCityFragment.$(byText(city)).click();
 
         return this;
     }
 
     public RegistrationPage clickSubmit() {
         submitButton.click();
-
-        return this;
-    }
-
-    public RegistrationPage checkResult(String key, String value) {
-        resultTable.$(byText(key)).parent()
-                .shouldHave(text(value));
-
-        return this;
-    }
-
-    public RegistrationPage checkModalNotAppear() {
-        resultTable.shouldNotBe(appear);
 
         return this;
     }

@@ -2,15 +2,18 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
+import pages.components.ResultTable;
 
 public class RegistrationFormPageObjectTests extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
+    ResultTable resultTable = new ResultTable();
 
     @Test
     void fullSuccessfulTest() {
         registrationPage
                 .openPage()
+                .removeBanners()
                 .setFirstName("Ivan")
                 .setLastName("Ivanov")
                 .setEmail("ivanov@google.com")
@@ -21,9 +24,10 @@ public class RegistrationFormPageObjectTests extends TestBase {
                 .setHobbies("Sports")
                 .uploadPicture("img/example.jpg")
                 .setAddress("Some City, Some Street, 123")
-                .setStateAndCity("NCR", "Delhi")
+                .setState("NCR")
+                .setCity("Delhi")
                 .clickSubmit();
-        registrationPage
+        resultTable
                 .checkResult("Student Name", "Ivan Ivanov")
                 .checkResult("Student Email", "ivanov@google.com")
                 .checkResult("Gender", "Male")
@@ -45,7 +49,7 @@ public class RegistrationFormPageObjectTests extends TestBase {
                 .setGender("Female")
                 .setUserNumber("1222333445")
                 .clickSubmit();
-        registrationPage
+        resultTable
                 .checkResult("Student Name", "Svetlana Petrova")
                 .checkResult("Gender", "Female")
                 .checkResult("Mobile", "Mobile 1222333445");
@@ -58,7 +62,8 @@ public class RegistrationFormPageObjectTests extends TestBase {
                 .setFirstName("Svetlana")
                 .setGender("Female")
                 .setUserNumber("1222333445")
-                .clickSubmit()
+                .clickSubmit();
+        resultTable
                 .checkModalNotAppear();
     }
 
@@ -69,7 +74,8 @@ public class RegistrationFormPageObjectTests extends TestBase {
                 .setFirstName("Svetlana")
                 .setLastName("Petrova")
                 .setGender("Female")
-                .clickSubmit()
+                .clickSubmit();
+        resultTable
                 .checkModalNotAppear();
     }
 }

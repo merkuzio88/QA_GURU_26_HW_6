@@ -1,30 +1,26 @@
 package tests;
 
-import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 import pages.components.ResultTable;
 
-import java.util.Locale;
-
-import static utils.RandomUtils.*;
+import static utils.TestData.*;
 
 public class RegistrationFormPageObjectTests extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
     ResultTable resultTable = new ResultTable();
-    Faker faker = new Faker(new Locale("en-GB"));
-    String firstName = faker.name().firstName(),
-            lastName = faker.name().lastName(),
-            email = faker.internet().emailAddress(),
+    String firstName = getRandomFirstName(),
+            lastName = getRandomLastName(),
+            email = getRandomEmail(),
             gender = getRandomGender(),
-            userNumber = faker.phoneNumber().subscriberNumber(10),
+            userNumber = getRandomPhoneNumber(),
             day = getRandomDay(),
             month = getRandomMonth(),
             year = getRandomYear(),
             subject = getRandomSubject(),
             picture = getRandomPicture(),
-            address = faker.address().streetAddress(),
+            address = getRandomAddress(),
             state = getRandomState(),
             city = getRandomCity(state),
             hobby = getRandomHobby();

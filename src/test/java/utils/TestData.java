@@ -5,9 +5,9 @@ import com.github.javafaker.Faker;
 import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class RandomUtils {
+public class TestData  {
 
-    static Faker faker = new Faker(new Locale("en-GB"));
+    private final static Faker faker = new Faker(new Locale("en-GB"));
 
     public static int getRandomInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
@@ -17,6 +17,26 @@ public class RandomUtils {
         int index = getRandomInt(0, array.length - 1);
 
         return array[index];
+    }
+
+    public static String getRandomFirstName() {
+
+        return faker.name().firstName();
+    }
+
+    public static String getRandomLastName() {
+
+        return faker.name().lastName();
+    }
+
+    public static String getRandomEmail() {
+
+        return faker.internet().emailAddress();
+    }
+
+    public static String getRandomPhoneNumber() {
+
+        return faker.phoneNumber().subscriberNumber(10);
     }
 
     public static String getRandomGender() {
@@ -36,6 +56,11 @@ public class RandomUtils {
         String[] states = {"example.jpg", "example2.jpg", "example3.jpg", "example4.jpg", "example5.jpg"};
 
         return getRandomItemFromArray(states);
+    }
+
+    public static String getRandomAddress() {
+
+        return faker.address().fullAddress();
     }
 
     public static String getRandomState() {

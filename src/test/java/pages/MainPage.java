@@ -13,6 +13,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class MainPage {
 
     private final ElementsCollection headlinesLinks = $$("div.sw21-header-nav__item");
+    private final SelenideElement logo = $(".sw21-header__logo");
 
     public MainPage openPage(Language language) {
         open("https://siberianhealth.com/" + language.url);
@@ -26,4 +27,9 @@ public class MainPage {
         return this;
     }
 
+    public MainPage checkingLogo() {
+        logo.shouldBe(visible);
+
+        return this;
+    }
 }

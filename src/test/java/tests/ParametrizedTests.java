@@ -1,7 +1,10 @@
 package tests;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import pages.MainPage;
 import utils.Language;
@@ -31,11 +34,21 @@ public class ParametrizedTests {
     }
 
     @MethodSource
-    @ParameterizedTest
+    @ParameterizedTest(name = "Проверка на локали {0} заголовков {1}")
+    @Tag("MINOR")
     void correctHeadlinesShouldBeVisible(Language language, List<String> expectedHeadlines) {
 
         mainPage
                 .openPage(language)
                 .checkingHeadlines(expectedHeadlines);
+    }
+
+    @EnumSource(Language.class)
+    @ParameterizedTest(name = "Проверка лого на локали {0}")
+    @Tag("MINOR")
+    void selectedCurrencyShouldBeDisplayedOnCurrencyButton(Language language) {
+        mainPage
+                .openPage(language)
+                .checkingLogo();
     }
 }

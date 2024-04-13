@@ -2,8 +2,10 @@ package tests;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import pages.MainPage;
@@ -19,16 +21,16 @@ public class ParametrizedTests {
     static Stream<Arguments> correctHeadlinesShouldBeVisible() {
         return Stream.of(
                 Arguments.of(
-                        Language.RU,
-                        List.of("Продукты", "О компании", "Бизнес", "Купить выгодно")
+                        Language.EN,
+                        List.of("Products", "About the Company", "Business", "Buy & save")
                 ),
                 Arguments.of(
                         Language.IT,
                         List.of("Prodotti", "Profilo dell’Azienda", "Business", "Acquisto vantaggioso")
                 ),
                 Arguments.of(
-                        Language.BG,
-                        List.of("Продукти", "За Компанията", "Бизнес", "Купете изгодно")
+                        Language.ES,
+                        List.of("Productos", "Sobre la Compañía", "Negocio", "Compra rentable")
                 )
         );
     }
@@ -39,16 +41,29 @@ public class ParametrizedTests {
     void correctHeadlinesShouldBeVisible(Language language, List<String> expectedHeadlines) {
 
         mainPage
-                .openPage(language)
+                .openPage(language.url)
                 .checkingHeadlines(expectedHeadlines);
     }
 
     @EnumSource(Language.class)
     @ParameterizedTest(name = "Проверка лого на локали {0}")
-    @Tag("MINOR")
+    @Tag("BLOCKER")
     void selectedCurrencyShouldBeDisplayedOnCurrencyButton(Language language) {
         mainPage
-                .openPage(language)
+                .openPage(language.url)
                 .checkingLogo();
+    }
+
+    @CsvFileSource(resources = "/bannerTexts.csv")
+    @ParameterizedTest(name = "Проверка текста {1} на локали {0}")
+    @Tags({
+            @Tag("BLOCKER"),
+            @Tag("SMOKE")
+    })
+    @DisplayName("Проверка текста баннера на различных локалях")
+    void checkingBa(String language, String expectedText){
+        mainPage
+                .openPage(language)
+                .checkingBannerText(expectedText);
     }
 }

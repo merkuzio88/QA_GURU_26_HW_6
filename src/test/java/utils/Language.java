@@ -1,9 +1,9 @@
 package utils;
 
 public enum Language {
-    RU("ru"),
+    EN("en"),
     IT("it"),
-    BG("bg");
+    ES("es");
 
     public final String url;
 

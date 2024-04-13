@@ -102,7 +102,7 @@ public class RegistrationPage {
         return this;
     }
 
-    @Step("Upload picture {value}")
+    @Step("Upload picture {fileName}")
     public RegistrationPage uploadPicture(String fileName) {
         pictureUpload.uploadFromClasspath(fileName);
 
@@ -116,7 +116,7 @@ public class RegistrationPage {
         return this;
     }
 
-    @Step("Set state {value}")
+    @Step("Set state {state}")
     public RegistrationPage setState(String state) {
         stateInput.click();
         stateAndCityFragment.$(byText(state)).click();
@@ -124,7 +124,7 @@ public class RegistrationPage {
         return this;
     }
 
-    @Step("Set city {value}")
+    @Step("Set city {city}")
     public RegistrationPage setCity(String city) {
         cityInput.click();
         stateAndCityFragment.$(byText(city)).click();

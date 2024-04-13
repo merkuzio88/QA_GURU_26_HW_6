@@ -25,6 +25,7 @@ allure {
 }
 
 dependencies {
+    runtimeOnly 'org.aspectj:aspectjweaver:1.9.22'
     testImplementation(
             "com.codeborne:selenide:$selenideVersion",
             "org.junit.jupiter:junit-jupiter:5.10.2",
@@ -32,6 +33,17 @@ dependencies {
             'org.slf4j:slf4j-simple:2.0.12',
             'com.github.javafaker:javafaker:1.0.2'
     )
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
 }
 
 task demoqa_test(type: Test) {

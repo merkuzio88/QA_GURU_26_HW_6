@@ -1,7 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.selector.ByText;
+import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 import pages.components.CalendarComponent;
 
@@ -28,6 +28,7 @@ public class RegistrationPage {
 
     CalendarComponent calendarComponent = new CalendarComponent();
 
+    @Step("Open registration form page")
     public RegistrationPage openPage() {
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
@@ -35,6 +36,7 @@ public class RegistrationPage {
         return this;
     }
 
+    @Step("Remove banners")
     public RegistrationPage removeBanners() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
@@ -42,36 +44,42 @@ public class RegistrationPage {
         return this;
     }
 
+    @Step("Set first name {value}")
     public RegistrationPage setFirstName(String value) {
         firstNameInput.setValue(value);
 
         return this;
     }
 
+    @Step("Set second name {value}")
     public RegistrationPage setLastName(String value) {
         lastNameInput.setValue(value);
 
         return this;
     }
 
+    @Step("Set email {value}")
     public RegistrationPage setEmail(String value) {
         userEmailInput.setValue(value);
 
         return this;
     }
 
+    @Step("Set gender {value}")
     public RegistrationPage setGender(String value) {
         genderWrapper.$(byText(value)).click();
 
         return this;
     }
 
+    @Step("Set user number {value}")
     public RegistrationPage setUserNumber(String value) {
         userNumberInput.setValue(value);
 
         return this;
     }
 
+    @Step("Set date of birth {day}, {month}, {year}")
     public RegistrationPage setDateOfBirth(String day, String month, String year) {
         calendarInput.click();
         calendarComponent.setDate(day, month, year);
@@ -79,6 +87,7 @@ public class RegistrationPage {
         return this;
     }
 
+    @Step("Set subject {value}")
     public RegistrationPage setSubject(String value) {
         subjectInput.setValue(value)
                 .sendKeys(Keys.ENTER);
@@ -86,24 +95,28 @@ public class RegistrationPage {
         return this;
     }
 
+    @Step("Set hobby {value}")
     public RegistrationPage setHobbies(String value) {
         hobbiesWrapper.$(byText(value)).click();
 
         return this;
     }
 
+    @Step("Upload picture {value}")
     public RegistrationPage uploadPicture(String fileName) {
         pictureUpload.uploadFromClasspath(fileName);
 
         return this;
     }
 
+    @Step("Set address {value}")
     public RegistrationPage setAddress(String value) {
         addressInput.setValue(value);
 
         return this;
     }
 
+    @Step("Set state {value}")
     public RegistrationPage setState(String state) {
         stateInput.click();
         stateAndCityFragment.$(byText(state)).click();
@@ -111,6 +124,7 @@ public class RegistrationPage {
         return this;
     }
 
+    @Step("Set city {value}")
     public RegistrationPage setCity(String city) {
         cityInput.click();
         stateAndCityFragment.$(byText(city)).click();
@@ -118,6 +132,7 @@ public class RegistrationPage {
         return this;
     }
 
+    @Step("Click submit")
     public RegistrationPage clickSubmit() {
         submitButton.click();
 

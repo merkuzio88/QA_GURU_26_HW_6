@@ -64,3 +64,11 @@ task negative_tests(type: Test) {
         includeTags("negative_test")
     }
 }
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}

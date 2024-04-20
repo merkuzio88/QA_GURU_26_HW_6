@@ -1,5 +1,6 @@
 package helpers;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
@@ -8,6 +9,7 @@ import org.openqa.selenium.TakesScreenshot;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 import static com.codeborne.selenide.Selenide.sessionId;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -38,9 +40,13 @@ public class Attach {
 
     @Attachment(value = "Video", type = "text/html", fileExtension = ".html")
     public static String addVideo() {
-        return "<html><body><video width='100%' height='100%' controls autoplay><source src='"
-                + getVideoUrl()
-                + "' type='video/mp4'></video></body></html>";
+        if (Objects.equals(Configuration.browser, "chrome")) {
+            return "<html><body><video width='100%' height='100%' controls autoplay><source src='"
+                    + getVideoUrl()
+                    + "' type='video/mp4'></video></body></html>";
+        } else {
+            return "<html><body>No video available for this browser</body></html>";
+        }
     }
 
     public static URL getVideoUrl() {

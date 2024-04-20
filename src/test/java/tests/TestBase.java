@@ -16,7 +16,7 @@ public class TestBase {
 
     @BeforeAll
     static void setUpConfig() {
-        Configuration.browser = System.getProperty("browser");
+        Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
         Configuration.browserVersion = System.getProperty("browserVersion", "120.0");
         Configuration.baseUrl = "https://demoqa.com";

@@ -28,7 +28,7 @@ public class RegistrationFormPageObjectTests extends TestBase {
 
 
     @Test
-    @Tag("demoqa")
+    @Tag("full_test")
     void fullSuccessfulTest() {
         registrationPage
                 .openPage()
@@ -60,6 +60,7 @@ public class RegistrationFormPageObjectTests extends TestBase {
     }
 
     @Test
+    @Tag("min_success_test")
     void minSuccessfulTest() {
         registrationPage
                 .openPage()
@@ -76,6 +77,7 @@ public class RegistrationFormPageObjectTests extends TestBase {
     }
 
     @Test
+    @Tag("negative_test")
     void negativeWithoutLastNameTest() {
         registrationPage
                 .openPage()
@@ -89,6 +91,7 @@ public class RegistrationFormPageObjectTests extends TestBase {
     }
 
     @Test
+    @Tag("negative_test")
     void negativeWithoutNumberTest() {
         registrationPage
                 .openPage()

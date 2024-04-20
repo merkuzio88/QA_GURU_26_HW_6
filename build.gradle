@@ -46,8 +46,20 @@ tasks.withType(Test) {
     }
 }
 
-task demoqa_test(type: Test) {
+task full_test(type: Test) {
     useJUnitPlatform {
-        includeTags("demoqa")
+        includeTags("full_test")
+    }
+}
+
+task min_success_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("min_success_test")
+    }
+}
+
+task negative_tests(type: Test) {
+    useJUnitPlatform {
+        includeTags("negative_test")
     }
 }

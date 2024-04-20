@@ -44,11 +44,13 @@ public class RegistrationFormPageObjectTests extends TestBase {
                 .setDateOfBirth(day, month, year)
                 .setSubject(subject)
                 .setHobbies(hobby)
-                .uploadPicture(picture)
                 .setAddress(address)
                 .setState(state)
                 .setCity(city)
                 .clickSubmit();
+        if (Objects.equals(Configuration.browser, "chrome")) {
+            registrationPage.uploadPicture(picture);
+        }
         resultTable
                 .checkResult("Student Name", firstName + " " + lastName)
                 .checkResult("Student Email", email)

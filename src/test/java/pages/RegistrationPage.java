@@ -1,12 +1,9 @@
 package pages;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 import pages.components.CalendarComponent;
-
-import java.util.Objects;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -107,9 +104,8 @@ public class RegistrationPage {
 
     @Step("Upload picture {fileName}")
     public RegistrationPage uploadPicture(String fileName) {
-        if (Objects.equals(Configuration.browser, "chrome")) {
-            pictureUpload.uploadFromClasspath(fileName);
-        }
+        pictureUpload.uploadFromClasspath(fileName);
+
         return this;
     }
 

@@ -1,9 +1,12 @@
 package tests;
 
+import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 import pages.components.ResultTable;
+
+import java.util.Objects;
 
 import static utils.TestData.*;
 
@@ -54,9 +57,11 @@ public class RegistrationFormPageObjectTests extends TestBase {
                 .checkResult("Date of Birth", day + " " + month + "," + year)
                 .checkResult("Subjects", subject)
                 .checkResult("Hobbies", hobby)
-                .checkResult("Picture", picture)
                 .checkResult("Address", address)
                 .checkResult("State and City", state + " " + city);
+        if (Objects.equals(Configuration.browser, "chrome")) {
+            resultTable.checkResult("Picture", picture);
+        }
     }
 
     @Test

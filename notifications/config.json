@@ -1,12 +1,12 @@
 {
   "base": {
-    "project": "${JOB_BASE_NAME}",
-    "environment": "env",
+    "project": "merkuzio88_telegram_notifications",
+    "environment": "jenkins",
     "comment": "comment",
-    "reportLink": "${BUILD_URL}",
+    "reportLink": "https://jenkins.autotests.cloud/job/merkuzio_demo_qa/38/",
     "language": "en",
     "messenger": "telegram",
-    "allureFolder": "build/allure-report/",
+    "allureFolder": "allure-report",
     "enableChart": true
   },
   "telegram": {

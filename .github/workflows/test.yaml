@@ -1,6 +1,12 @@
 name: Run tests and publish report
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to run tests with'
+        required: true
+        default: 'full_test'
 
 jobs:
   test:
@@ -22,22 +28,8 @@ jobs:
           java-version: '11'
       - uses: Xotabu4/selenoid-github-action@v2
       - run: |
-          # Запуск тестов в зависимости от выбранного тэга
-          case "${{ matrix.tags }}" in
-            full_test)
-              ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub -Dtags=full_test
-              ;;
-            min_success_test)
-              ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub -Dtags=min_success_test
-              ;;
-            negative_test)
-              ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub -Dtags=negative_test
-              ;;
-            *)
-              echo "Invalid tag provided"
-              exit 1
-              ;;
-          esac
+          # Запуск тестов с выбранным тэгом, переданным как входной параметр
+          ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub -Dtags=${{ github.event.inputs.tag }}
 
       # скачиваем историю тестов
       - uses: actions/checkout@v3

@@ -21,7 +21,6 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
       - uses: Xotabu4/selenoid-github-action@v2
-
       - run: |
         # Запуск тестов в зависимости от выбранного тэга
           case "${{ matrix.tags }}" in

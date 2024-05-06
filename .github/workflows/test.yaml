@@ -6,6 +6,11 @@ jobs:
   test:
     # где заускаем
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        tags: [ full_test, min_success_test, negative_test ]
+
     # что делаем
     steps:
       # выкачиваем репозиторий
@@ -16,8 +21,25 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
       - uses: Xotabu4/selenoid-github-action@v2
-      # запускаем тесты
-      - run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub
+
+      - run: |
+        # Запуск тестов в зависимости от выбранного тэга
+          case "${{ matrix.tags }}" in
+            full_test)
+              ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub -Dtags=full_test
+              ;;
+            min_success_test)
+              ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub -Dtags=min_success_test
+              ;;
+            negative_test)
+              ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub -Dtags=negative_test
+              ;;
+            *)
+              echo "Invalid tag provided: ${{ matrix.tags }}"
+              exit 1
+              ;;
+          esac
+
       # скачиваем историю тестов
       - uses: actions/checkout@v3
         if: always()

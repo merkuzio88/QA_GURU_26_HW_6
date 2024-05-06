@@ -13,10 +13,6 @@ jobs:
     # где заускаем
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        tags: [ full_test, min_success_test, negative_test ]
-
     # что делаем
     steps:
       # выкачиваем репозиторий
